@@ -178,29 +178,30 @@ def _ensure_llvm():
 
     # Only look at the the major, minor and bugfix version numbers.
     # Ignore other stuffs
-    regex = re.compile(r'(\d+)\.(\d+).(\d+)')
-    m = regex.match(llvmlite.__version__)
-    if m:
-        ver = tuple(map(int, m.groups()))
-        if ver < _min_llvmlite_version:
-            msg = ("Numba requires at least version %d.%d.%d of llvmlite.\n"
-                   "Installed version is %s.\n"
-                   "Please update llvmlite." %
-                   (_min_llvmlite_version + (llvmlite.__version__,)))
-            raise ImportError(msg)
-    else:
-        # Not matching?
-        warnings.warn("llvmlite version format not recognized!")
+    # regex = re.compile(r'(\d+)\.(\d+).(\d+)')
+    # m = regex.match(llvmlite.__version__)
+    # if m:
+    #     ver = tuple(map(int, m.groups()))
+    #     if ver < _min_llvmlite_version:
+    #         msg = ("Numba requires at least version %d.%d.%d of llvmlite.\n"
+    #                "Installed version is %s.\n"
+    #                "Please update llvmlite." %
+    #                (_min_llvmlite_version + (llvmlite.__version__,)))
+    #         raise ImportError(msg)
+    # else:
+    #     # Not matching?
+    #     warnings.warn("llvmlite version format not recognized!")
 
-    from llvmlite.binding import llvm_version_info, check_jit_execution
+    # from llvmlite.binding import llvm_version_info, check_jit_execution
 
-    if llvm_version_info < _min_llvm_version:
-        msg = ("Numba requires at least version %d.%d.%d of LLVM.\n"
-               "Installed llvmlite is built against version %d.%d.%d.\n"
-               "Please update llvmlite." %
-               (_min_llvm_version + llvm_version_info))
-        raise ImportError(msg)
+    # if llvm_version_info < _min_llvm_version:
+    #     msg = ("Numba requires at least version %d.%d.%d of LLVM.\n"
+    #            "Installed llvmlite is built against version %d.%d.%d.\n"
+    #            "Please update llvmlite." %
+    #            (_min_llvm_version + llvm_version_info))
+    #     raise ImportError(msg)
 
+    from llvmlite.binding import check_jit_execution
     check_jit_execution()
 
 def _ensure_critical_deps():
